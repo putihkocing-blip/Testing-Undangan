@@ -1,14 +1,15 @@
 (function () {
   'use strict';
 
-  // Mengambil elemen HTML berdasarkan ID
   function $(id) {
     return document.getElementById(id);
   }
 
+  // Mengubah tanggal ke format Google Calendar
   function toCal(date) {
     return date.toISOString().replace(/[-:]|\.\d{3}/g, '');
   }
+
   var openBtn = $('openBtn');
   var cover = $('cover');
 
@@ -19,7 +20,6 @@
     });
   }
 
-  // 2. Tombol Google Calendar
   var calBtn = $('calBtn');
 
   if (calBtn) {
@@ -28,10 +28,10 @@
 
     var calendarUrl =
       'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + encodeURIComponent('Pernikahan Naruto & Hinata') +
+      '&text=' + encodeURIComponent('Pernikahan Raka & Ayu') +
       '&dates=' + toCal(start) + '/' + toCal(end) +
       '&location=' + encodeURIComponent(
-        'Gedung Graha Unesa, Surabaya'
+        'Gedung Graha Sentosa, Surabaya'
       );
 
     calBtn.href = calendarUrl;
@@ -39,7 +39,6 @@
     calBtn.rel = 'noopener noreferrer';
   }
 
-  // 3. Notifikasi
   function showToast(message) {
     var toastMsg = $('toastMsg');
     var appToast = $('appToast');
@@ -55,9 +54,9 @@
     }
   }
 
-  // 4. Salin nomor rekening
   function fallbackCopy(text) {
     var textarea = document.createElement('textarea');
+
     textarea.value = text;
     textarea.style.position = 'fixed';
     textarea.style.left = '-9999px';
@@ -78,13 +77,14 @@
     if (success) {
       showToast('Nomor rekening berhasil disalin.');
     } else {
-      showToast('Silakan salin secara manual: ' + text);
+      showToast('Silakan salin nomor rekening secara manual: ' + text);
     }
   }
 
   document.querySelectorAll('.copy-btn').forEach(function (button) {
     button.addEventListener('click', function () {
-      var target = $(button.getAttribute('data-target'));
+      var targetId = button.getAttribute('data-target');
+      var target = $(targetId);
 
       if (!target) {
         showToast('Nomor rekening tidak ditemukan.');
@@ -107,24 +107,28 @@
     });
   });
 
-  // 5. Animasi saat halaman digulir
-  var items = document.querySelectorAll('.reveal');
+  var revealItems = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
 
-    items.forEach(function (item) {
+    revealItems.forEach(function (item) {
       observer.observe(item);
     });
   } else {
-    items.forEach(function (item) {
+    revealItems.forEach(function (item) {
       item.classList.add('in');
     });
   }
