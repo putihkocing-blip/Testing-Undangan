@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-
   function toCal(d) { return d.toISOString().replace(/[-:]|\.\d{3}/g, ''); }
   $('calBtn').href =
     'https://calendar.google.com/calendar/render?action=TEMPLATE' +
