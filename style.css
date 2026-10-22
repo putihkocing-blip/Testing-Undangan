@@ -105,6 +105,9 @@ a:focus-visible, button:focus-visible, .form-control:focus, .form-select:focus {
   overflow-y: auto;
   transition: transform .8s cubic-bezier(.76, 0, .24, 1);
 }
+body.is-locked {
+  overflow: hidden;
+}
 .cover.is-open { transform: translateY(-100%); pointer-events: none; }
 .cover .btn-ink { background: var(--on-dark); color: var(--dark); border-color: var(--on-dark); }
 .cover .btn-ink:hover, .cover .btn-ink:focus-visible { background: transparent; color: var(--on-dark); }
