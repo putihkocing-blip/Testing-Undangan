@@ -1,26 +1,19 @@
 (function () {
   'use strict';
 
-  // Memudahkan pemanggilan elemen HTML berdasarkan ID
   var $ = function (id) {
     return document.getElementById(id);
   };
 
-  var openBtn = $('openBtn');
-  var cover = $('cover');
-  var musicBtn = $('musicBtn');
+var openBtn = $('openBtn');
+var cover = $('cover');
 
-  if (openBtn && cover) {
-    openBtn.addEventListener('click', function () {
-      cover.classList.add('is-open');
-      document.body.classList.remove('is-locked');
-      window.scrollTo(0, 0);
-
-      if (musicBtn) {
-        musicBtn.hidden = false;
-      }
-    });
-  }
+if (openBtn && cover) {
+  openBtn.addEventListener('click', function () {
+    cover.classList.add('is-open');
+    document.body.classList.remove('is-locked');
+  });
+}
 
   function toCal(date) {
     return date.toISOString().replace(/[-:]|\.\d{3}/g, '');
